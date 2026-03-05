@@ -76,3 +76,19 @@ sudo raspi-config
 Interface Options → Serial → Enable
 sudo reboot
 
+#Fingerprint Sensor
+sudo apt-get update
+sudo apt-get install python3-pip
+pip3 install pyfingerprint
+sudo apt-get upgrade
+sudo pip3 install pyfingerprint
+sudo usermod -a -G dialout $USER
+sudo reboot
+| Fingerprint Sensor Pin | Raspberry Pi Physical Pin | GPIO Number       | Function          |
+| ---------------------- | ------------------------- | ----------------- | ----------------- |
+| **TX**                 | **Pin 10**                | **GPIO 15 (RXD)** | Serial Data to Pi |
+| **RX**                 | **Pin 8**                 | **GPIO 14 (TXD)** | Serial Data from Pi |
+| **VCC**                | **Pin 2**                 | **5V**            | Power Supply      |
+| **GND**                | **Pin 6**                 | **Ground**        | Ground            |
+sudo raspi-config
+Interface Options → Serial → Enable
