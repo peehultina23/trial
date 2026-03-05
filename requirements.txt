@@ -148,3 +148,5 @@ Interface Options → Serial → Enable
 | --------------------- | ------------ | ------ |
 | Button                | **37**       | GPIO26 |
 | Other button terminal | **Pin 6**    | GND    |
+
+p-mallah123 git hub
