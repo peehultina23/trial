@@ -1,0 +1,24 @@
+from time import sleep
+import tm1637
+
+try:
+    import thread
+except ImportError:
+    import _thread as thread
+
+# Initialize Display
+Display = tm1637.TM1637(CLK=21, DIO=20, brightness=1.0)
+
+try:
+    print("Starting clock in the background (press CTRL + C to stop):")
+
+    Display.StartClock(military_time=True)
+    sleep(1)
+
+    Display.ShowDoublepoint(False)
+    sleep(5)
+
+    Display.StopClock()
+
+except KeyboardInterrupt:
+    Display.cleanup()

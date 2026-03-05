@@ -1,0 +1,24 @@
+| LED     | Physical PIN Number | GPIO Number |
+| ------- | ------------------- | ----------- |
+| LED 1   | 29                  | GPIO 05     |
+| LED 2   | 31                  | GPIO 06     |
+| LED 3   | 33                  | GPIO 13     |
+| LED 4   | 35                  | GPIO 19     |
+| LED 5   | 37                  | GPIO 26     |
+| All GND | 39                  | GND         |
+
+sudo apt update
+sudo apt install python3-rpi.gpio
+
+# requirements.txt
+gpiozero
+RPi.GPIO
+
+#7segment display
+pip3 install raspberrypi-tm1637
+| TM1637 Board Pin | Physical PIN Number | GPIO Number |
+| ---------------- | ------------------- | ----------- |
+| CLK              | 38                  | GPIO 20     |
+| DIO              | 40                  | GPIO 21     |
+| VCC              | 1                   | 3.3 V       |
+| GND              | 6                   | Ground      |
