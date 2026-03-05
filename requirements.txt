@@ -105,3 +105,19 @@ sudo apt-get install python3-picamera
 sudo raspi-config
 Interface Options → I2C → Enable
 
+#motor 
+sudo apt-get update
+sudo apt-get install python3-pip
+pip3 install RPi.GPIO
+| Module / Pin                | Raspberry Pi Physical Pin | GPIO Number | Connection                         |
+| --------------------------- | ------------------------- | ----------- | ---------------------------------- |
+| **A1**                      | **11**                    | **GPIO 17** | Motor control input 1              |
+| **A2**                      | **13**                    | **GPIO 27** | Motor control input 2              |
+| **EA (Enable)**             | —                         | —           | Connect to **+5V External Supply** |
+| **VCC (L293D Logic Power)** | —                         | —           | Connect to **+5V External Supply** |
+| **GND (L293D)**             | —                         | —           | Connect to **External GND**        |
+| **Raspberry Pi VCC**        | **Pin 1**                 | 5V          | Connect to **+5V External**        |
+| **Raspberry Pi GND**        | **Pin 6**                 | GND         | Connect to **External GND**        |
+sudo raspi-config
+Interface Options → Serial → Enable
+
