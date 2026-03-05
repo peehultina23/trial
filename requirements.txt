@@ -92,3 +92,16 @@ sudo reboot
 | **GND**                | **Pin 6**                 | **Ground**        | Ground            |
 sudo raspi-config
 Interface Options → Serial → Enable
+
+#Camera Module
+sudo apt-get update
+sudo apt-get install python3-picamera
+| Device                 | Raspberry Pi Connection | Physical Pin   | GPIO           |
+| ---------------------- | ----------------------- | -------------- | -------------- |
+| Pi Camera Ribbon Cable | CSI Camera Port         | Not Applicable | Not Applicable |
+| Power                  | Provided through CSI    | —              | —              |
+| Data                   | CSI Interface           | —              | —              |
+
+sudo raspi-config
+Interface Options → I2C → Enable
+
