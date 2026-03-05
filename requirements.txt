@@ -121,3 +121,30 @@ pip3 install RPi.GPIO
 sudo raspi-config
 Interface Options → Serial → Enable
 
+#blink single led
+| Component       | Raspberry Pi Physical Pin | GPIO       | Connection                |
+| --------------- | ------------------------- | ---------- | ------------------------- |
+| LED Anode (+)   | Pin **29**                | GPIO **5** | Through **220Ω resistor** |
+| LED Cathode (-) | Pin **6**                 | GND        | Ground                    |
+
+#toggle 2 LEDs
+| Component         | Raspberry Pi Physical Pin | GPIO       | Connection       |
+| ----------------- | ------------------------- | ---------- | ---------------- |
+| LED 1             | Pin **29**                | GPIO **5** | Through resistor |
+| LED 2             | Pin **31**                | GPIO **6** | Through resistor |
+| Both LED Cathodes | Pin **6**                 | GND        | Ground           |
+
+#4leds
+| LED         | Physical Pin | GPIO   |
+| ----------- | ------------ | ------ |
+| LED1        | **29**       | GPIO5  |
+| LED2        | **31**       | GPIO6  |
+| LED3        | **33**       | GPIO13 |
+| LED4        | **35**       | GPIO19 |
+| All LED GND | **Pin 6**    | GND    |
+
+#button
+| Component             | Physical Pin | GPIO   |
+| --------------------- | ------------ | ------ |
+| Button                | **37**       | GPIO26 |
+| Other button terminal | **Pin 6**    | GND    |
