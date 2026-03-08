@@ -36,10 +36,20 @@ sns.boxplot(x=df['Age'])
 plt.title('Boxplot of Age') 
 plt.show()
 
-data2 = pd.read_csv('data.csv')
+plt.scatter(df['Name'], df['Age'])
+plt.title('Name vs Age')
+plt.xlabel('Name')
+plt.ylabel('Age')
+plt.show()
+
+plt.pie(df['Age'], labels=df['Name'], autopct='%1.1f%%')
+plt.title('Age Distribution by Name')
+plt.show()
+
+'''data2 = pd.read_csv('data.csv')
 df2 = pd.DataFrame(data2)
 print(df2.head())
-print(df2.describe())
+print(df2.describe())'''
 
 
 
