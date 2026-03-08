@@ -1,0 +1,35 @@
+— Install Required Packages
+Open Command Prompt and type:
+pip install fastapi uvicorn pandas scikit-learn joblib
+
+extra hidden code
+from pydantic import BaseModel
+import joblib
+app = FastAPI()
+model = joblib.load("model.pkl")
+class PredictionInput(BaseModel):
+    area: int
+    bedrooms: int
+@app.get("/")
+def home():
+    return {"message": "House Price Prediction API Running"}
+@app.post("/predict")
+def predict(input_data: PredictionInput):
+    price = model.predict([[input_data.area, input_data.bedrooms]])
+    return {"Predicted Price": float(price[0])}
+
+
+In Command Prompt:
+uvicorn main:app --reload
+
+Open Terminal / Command Prompt
+Go to project folder:
+cd Desktop/HousePriceDocker
+Build image:
+docker build -t house-price-app .
+Wait until build completes.
+STEP 9: Run Docker Container
+docker run -p 5000:5000 house-price-app
+STEP 10: Test API
+Open browser:
+http://localhost:5000
