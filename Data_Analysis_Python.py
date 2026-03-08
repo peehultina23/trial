@@ -21,6 +21,7 @@ df.replace("missing", np.nan, inplace=True)
 df['Age'] = df['Age'].astype(float)
 # Fill missing values with the mean age
 mean_age = df['Age'].mean()
+df['Age'].fillna(mean_age, inplace=True)
 print(df)
 print(df.describe())
 
@@ -35,5 +36,9 @@ sns.boxplot(x=df['Age'])
 plt.title('Boxplot of Age') 
 plt.show()
 
+data2 = pd.read_csv('data.csv')
+df2 = pd.DataFrame(data2)
+print(df2.head())
+print(df2.describe())
 
 
