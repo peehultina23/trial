@@ -1,3 +1,5 @@
+
+#check sphere collider for angle
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,3 +24,9 @@ public class RangeChecker : MonoBehaviour
         }
     }
 }
+
+In new 3D scene
+add sphere and cube
+cube mein add box collider
+in sphere - add angle.cs and degree_checker.cs scripts and drag cube from heirarchy in Targe field 
+save and run the scene. Move the sphere using WASD keys and check the console for angle and range information.
