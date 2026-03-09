@@ -1,3 +1,12 @@
+#give me proper coordinates of object to set properly infront of camera in the scene inspector
+To set an object properly in front of the camera in the Unity scene inspector, you can use the following coordinates:
+- Position: (0, 0, 5) - This will place the object 5 units in front of the camera along the Z-axis.
+- Rotation: (0, 0, 0) - This will ensure the object is not rotated and faces the camera directly.
+- Scale: (1, 1, 1) - This will keep the object at its original size.
+Make sure to adjust the Z-coordinate based on the distance you want the object to be from the camera.
+ If you want it closer, you can use a smaller value (e.g., 3), and if you want it farther away, you can use a larger value (e.g., 10).  
+
+
 #Implementing a physical characteristic (Translation, Rotation, Scaling) on 2D Object
 
 #steps to implement translation, rotation and scaling on 2D object in Unity:
