@@ -1,4 +1,49 @@
 #Area, Platform & Buoyancy Effect in unity
+STEPS
+
+#Area Effector : 
+
+GameObject > 2D Object > Sprites > Square (create two boxes(GameObject) one big and one slightly smaller, facing each other 
+
+Smaller Box 
+From Components > Box Collider2D
+From Components > Rigidbody2D(GravityScale : 0)
+Add JumpMove script 
+In Sprite Renderer > Additional Settings > Order in Layer : 5
+
+Bigger Box 
+BoxCollider2D : (IsTrigger : Checked, Used ByEffector : Checked)
+Area Effector2D : Use collider Mask : checked 
+Change the colour of the bigger box 
+
+
+#Buoyancy Effector : 
+
+GameObject > a circle, and a square long slab,right below it
+
+Small Circle : 
+RigidBody2D: GravityScale :1
+BoxCollider2D 
+JumpMove script
+
+Square Slab :
+Change colour
+BoxCollider2D : IsTrigger : checked, Used by Effector :Checked 
+Buoyancy Effector : Surface Level : 0.5, 
+Damping : both should be 5
+
+#Platform Effector :
+GameObject > a circle, and a square long slab,right below it
+Small Circle : 
+RigidBody2D: GravityScale :1
+BoxCollider2D 
+JumpMove script
+Square Slab :
+Change colour
+BoxCollider2D : IsTrigger : checked, Used by Effector :Checked 
+Platform Effector : Surface Arc : 180, Use One Way : checked, Use Side Friction : checked, Side Friction : 0.5
+
+
 #steps to create buoyancy effect in Unity
 1. Open Unity and create a new 2D project.
 2. Create a new 2D sprite (e.g., a square or circle) and add it to the scene.

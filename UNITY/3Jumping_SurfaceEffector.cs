@@ -1,4 +1,9 @@
 #Implement physical characteristics(jump) to an object and also bind surface effector steps (also rigid body2d) to it in Unity
+Steps:
+
+GameObject > 2D > Sprites> Circle
+Add rigidbody 2D > Circle
+Add and bind script >  play > press space to jump
 
 using UnityEngine;
 public class jump : MonoBehaviour
@@ -19,6 +24,12 @@ rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
 }
 
 #Translation + Move(forward and backward) create one more script(move) and bind with tringle object
+Steps:
+
+GameObject > 2D > Sprites> Circle
+Add rigidbody 2D > Circle
+Add and bind script >  play > press space to jump, left right arrow keys
+
 using UnityEngine;
 public class move : MonoBehaviour
 {
@@ -45,6 +56,11 @@ rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y);
 }
 
 #Create one more script for changing a colours.
+
+GameObject > 2D > Sprites> Circle
+Add rigidbody 2D > Circle
+Add and bind script >  play > press space to jump, left right arrow keys
+
 using UnityEngine;
 public class jumpcolor : MonoBehaviour
 {
@@ -85,6 +101,14 @@ sr.color = Color.white;
 Create a base with a subject. Then:
 Component > physics 2D >; Box collider 2D
 Component > physics 2D > Surface effector 2D
+And bind with same script as C.
+
+Create a base with a subject. Then:
+Component > physics 2D >; Box collider 2D (CHECK - used by effector)
+Component > physics 2D > Surface effector 2D
+
+To the circle > add component > CircleCollider2D
+
 And bind with same script as C.
 
 

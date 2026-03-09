@@ -65,3 +65,16 @@ public class LoadA : MonoBehaviour
         }
     }
 }
+
+#scene management steps
+1. Create a new scene and name it "surface".
+2. Create a new C# script and name it "ScriptManager". Attach this script to an empty GameObject in the main scene.
+3. In the ScriptManager script, implement the LoadScene method to load the "surface" scene when a button is clicked.
+4. Create a UI Button in the main scene and set its OnClick event to call the LoadScene method from the ScriptManager script.
+5. Create another C# script named "LoadAdditive" and implement the LoadSceneAdd method to load the "surface" scene additively.
+6. Create a UI Button in the main scene and set its OnClick event to call the LoadSceneAdd method from the LoadAdditive script.
+7. Create a C# script named "Unload" and implement the LoadScene method to unload the "surface" scene when a button is clicked.
+8. Create a UI Button in the main scene and set its OnClick event to call the LoadScene method from the Unload script.
+9. Create a C# script named "LoadA" and implement the LoadScene method to load the "surface" scene asynchronously.
+10. Create a UI Button in the main scene and set its OnClick event to call the LoadScene method from the LoadA script.
+11. Press the Play button to run the scene and test the functionality of loading, unloading, and loading asynchronously the "surface" scene using the respective buttons.
