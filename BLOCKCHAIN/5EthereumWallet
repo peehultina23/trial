@@ -1,0 +1,28 @@
+Open both MetaMask and Ganache.
+In MetaMask, click on the three horizontal lines located on the right side of the interface and navigate to “Networks.”
+
+Select “Add a Custom Network.”
+Enter the following details:
+Network Name:Localhost8545
+Chain ID:1337
+Currency Symbol:ETH
+For the Default RPC URL, click on the dropdown button next to the field and select “Add RPC URL.”
+
+Open Ganache, locate the RPC Server address displayed in the menu bar, and copy the link.
+Paste the copied RPC Server URLinto the RPC URL field in MetaMask, then click “Add URL.”
+
+In MetaMask, locate the “Imported Account” section on the left-hand side and click on it.
+Select “Add Wallet” then choose “Import an Account.”
+
+Return to Ganache and click on the key iconnext to any account. Copy the private key displayed.
+Paste the copied private key into MetaMask and click “Import.”
+
+After importing, the account will display a balance of 100 Ethereum (ETH).
+Navigate back to the MetaMask home pageand click on “Send.”
+From the network dropdown, select “Localhost 8545.”
+Choose the available Ethereum balanceand click on it.
+Click the address book icon and select any wallet. Enter the desired amount in the Amountfield.
+Click “Continue” and then select “Confirm” to proceed with the transaction.
+
+Once the transaction is completed, a confirmation message indicating that the transaction was successful will appear.
+In Ganache, the account from which the transaction was made will reflect the reduced balance, confirming that the transfer has been processed.
