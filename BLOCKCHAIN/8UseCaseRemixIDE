@@ -4,8 +4,10 @@
 >Compile it
 >Deploy it
 >Copy 1st Address & Paste to deploy
->Transaction will happen'''
+>Transaction will happen
 
+''H. Donation: 1. Set Value to 1 Ether, click donate.
+2. Click total to see the accumulated amount.'''
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -21,7 +23,8 @@ contract Donation {
     }
 }
 #-----Same steps for Piggy Bank (PiggyBank.sol)
-
+'''F. Piggy Bank: 1. Send money using the low-level "Transact" button at the very bottom (calls receive).
+2. Click withdraw. Only the account that deployed the contract can do this.'''
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -38,7 +41,11 @@ contract PiggyBank {
         require(success, "Failed");
     }
 }
+
 #Auction
+'''A. Auction: 1. Select Account 1, set Value to 1 Ether, click bid.
+2. Switch to Account 2, set Value to 2 Ether, click bid.
+3. Check highestBidder—it should now be Account 2.'''
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -61,6 +68,10 @@ contract SimpleAuction {
 }
 
 #Deposit & Withdraw
+'''
+B. Deposit & Withdraw: 1. Set Value to 5 Ether, click deposit.
+2. Click getMyBalance (blue button) to see your 5 ETH.
+3. Type 2000000000000000000 (2 ETH in Wei) into the withdraw box and click it.'''
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -84,6 +95,9 @@ contract Bank {
 }
 
 #Voting
+'''C. Voting: 1. Select Account 1, type 1 in the box, click vote.
+2. Try clicking vote again with the same account—Remix will show a Red Error in the console because of the require statement (this is a successful test!).
+3. Switch to Account 2 to cast a second vote.'''
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -107,6 +121,9 @@ contract Voting {
 }
 
 #Attendance
+'''D. Attendance: 1. Click markPresent.
+2. Switch accounts and click it again.
+3. Click totalAttendance to see the list growing.'''
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -123,6 +140,9 @@ contract Attendance {
 }
 
 #Quiz
+'''E. Quiz: 1. Type "Paris" (with quotes) into the submitAnswer box.
+2. Click the button.
+3. Click solved and paste your address to see if it returns true.'''
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
@@ -140,6 +160,9 @@ contract Quiz {
 }
 
 #Tranfer Ethereum one acc -> another
+'''G. Transfer ETH: 1. Copy the address of Account 3 from the dropdown.
+2. Paste it into the _receiver box of Account 1.
+3. Set Value to 1 Ether and click sendMoney.'''
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
