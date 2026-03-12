@@ -1,0 +1,18 @@
+#Find the exchange rate of cryptocurrency with necessary data
+Go to Coin Gecko
+
+
+P1 = Price on the First Day
+PN = Price on the Last Day
+Final Change (%) = PN-P1 / P1 * 100
+LOG Return R = LN (PN/P1) * 100
+
+Bitcoin:
+P1 = 86,972.85
+PN = 68,567.68
+Final change = 68,567.68-86,972.85 / 86,972.85 * 100 =
+−0.211613×100
+= −21.16%
+LOG Return R = −23.76%
+
+Calculate the same way for others too like Ethereum, Tether, Solana, DogeCoin
