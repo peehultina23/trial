@@ -1,0 +1,152 @@
+# remix ide use cases
+'''>Remix IDE on google
+>Write a program in a new file - Donation.sol
+>Compile it
+>Deploy it
+>Copy 1st Address & Paste to deploy
+>Transaction will happen'''
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract Donation {
+    uint public total;
+
+    function donate() public payable {
+        total += msg.value;
+    }
+
+    function getBalance() public view returns(uint) {
+        return address(this).balance;
+    }
+}
+#-----Same steps for Piggy Bank (PiggyBank.sol)
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract PiggyBank {
+
+    function deposit() public payable {}
+
+    function getBalance() public view returns(uint) {
+        return address(this).balance;
+    }
+
+    function withdraw() public {
+        (bool success, ) = payable(msg.sender).call{value: address(this).balance}("");
+        require(success, "Failed");
+    }
+}
+#Auction
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract SimpleAuction {
+    address public highestBidder;
+    uint public highestBid;
+
+    function bid() public payable {
+        // Error check: bid must be higher than the current highest
+        require(msg.value > highestBid, "Bid is too low.");
+
+        // Refund the previous highest bidder
+        if (highestBid != 0) {
+            payable(highestBidder).transfer(highestBid);
+        }
+
+        highestBidder = msg.sender;
+        highestBid = msg.value;
+    }
+}
+
+#Deposit & Withdraw
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract Bank {
+    mapping(address => uint) public balances;
+
+    function deposit() public payable {
+        balances[msg.sender] += msg.value;
+    }
+
+    function withdraw(uint _amount) public {
+        require(balances[msg.sender] >= _amount, "Insufficient balance");
+        
+        balances[msg.sender] -= _amount;
+        payable(msg.sender).transfer(_amount);
+    }
+
+    function getMyBalance() public view returns (uint) {
+        return balances[msg.sender];
+    }
+}
+
+#Voting
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract Voting {
+    uint public candidate1Count;
+    uint public candidate2Count;
+    mapping(address => bool) public hasVoted;
+
+    function vote(uint _candidate) public {
+        require(!hasVoted[msg.sender], "You have already voted.");
+        require(_candidate == 1 || _candidate == 2, "Invalid candidate.");
+
+        if (_candidate == 1) {
+            candidate1Count++;
+        } else {
+            candidate2Count++;
+        }
+
+        hasVoted[msg.sender] = true;
+    }
+}
+
+#Attendance
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract Attendance {
+    address[] public list;
+
+    function markPresent() public {
+        list.push(msg.sender);
+    }
+
+    function totalAttendance() public view returns (uint) {
+        return list.length;
+    }
+}
+
+#Quiz
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract Quiz {
+    string public question = "What is the capital of France?";
+    string private answer = "Paris";
+    mapping(address => bool) public solved;
+
+    function answerQuiz(string memory _attempt) public {
+        // keccak256 is used to compare strings in Solidity
+        if (keccak256(abi.encodePacked(_attempt)) == keccak256(abi.encodePacked(answer))) {
+            solved[msg.sender] = true;
+        }
+    }
+}
+
+#Tranfer Ethereum one acc -> another
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract TransferEth {
+    function sendMoney(address payable _receiver) public payable {
+        _receiver.transfer(msg.value);
+    }
+}
+
+
