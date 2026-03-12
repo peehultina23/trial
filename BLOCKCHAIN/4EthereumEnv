@@ -1,0 +1,15 @@
+Setting up Ethereum development Environment.
+S1: search for ethereum downloads, go to fist link and click on for Windows
+S2: After that, click on it > check the Development Tool Too.
+S3: Go to path and open cmd and give command.
+-> geth version
+S4: search for ganache downloads, go to fist link and click on for Download (Windows).
+S5: Open and click on Install
+S6: Click on continue and Quickstart. Use any these account to do a transation.
+S7: search for metamask downloads, go to fist link and click on Start swipping.
+S8: Browser Extension > Chrome > Add Chrome
+S9: Click on create a new wallet
+S10: then continue with Use Secret recovery phase.
+S11: Setup a Password
+S12: Choose both the checkboxes > and continue.
+S13: open wallet.
