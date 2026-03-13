@@ -195,3 +195,87 @@ amu Code
     </script>
   </body>
 </html>
+
+
+#backup
+Add this code too for 10 ka backup
+app.js
+async function addAndPay() {
+
+
+if (typeof window.ethereum === 'undefined') {
+    alert("MetaMask not detected!");
+    return;
+}
+
+try {
+
+    // Read numbers from UI
+    const num1 = Number(document.getElementById("num1").value);
+    const num2 = Number(document.getElementById("num2").value);
+
+    const sum = num1 + num2;
+
+    document.getElementById("result").innerText = "Result: " + sum;
+
+    // Connect wallet
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    // Transaction (0.001 ETH)
+    const tx = {
+        to: await signer.getAddress(),
+        value: ethers.utils.parseEther("0.001")
+    };
+
+    const transaction = await signer.sendTransaction(tx);
+    await transaction.wait();
+
+    alert("0.001 ETH deducted successfully!");
+
+} catch (error) {
+    console.error(error);
+    alert("Transaction failed or rejected");
+}
+
+}
+
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Numbers with ETH Deduction</title>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Add Two Numbers (ETH Deduction)</h2>
+
+<input type="number" id="num1" placeholder="Number 1" />
+<input type="number" id="num2" placeholder="Number 2" />
+
+<br><br>
+
+<button onclick="addAndPay()">Add</button>
+
+<h3 id="result"></h3>
+
+<script src="app.js"></script>
+
+</body>
+</html>
