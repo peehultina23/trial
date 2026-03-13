@@ -115,7 +115,7 @@ Browser: Go to localhost:3000, click Connect in MetaMask, and enter your numbers
 Step 4: Interacting with the UILaunch: Your browser will open http://localhost:3000.Connect: MetaMask will pop up asking to connect your Imported Account.Calculate: * Enter numbers (e.g., 2 and 2).Click the Add button.The sum will appear instantly next to Result
 
 
-#### ---###
+####
 amu Code 
 <!doctype html>
 <html>
