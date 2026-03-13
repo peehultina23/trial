@@ -1,0 +1,10 @@
+Practical 1: RSA Algorithm
+
+Steps:
+1. Key generation
+2. Encryption
+3. Decryption
+
+---
+
+1.b Simple client class that generates private and public key ledgers using Python RSA algorithm and tests it.

@@ -1,0 +1,6 @@
+Practical 3: Calculate Number of Bitcoins
+
+Steps:
+1. Input investment amount in INR.
+2. Input current price of 1 BTC in INR.
+3. Calculate number of BTC: amount_in_inr / price_of_1_btc_in_inr

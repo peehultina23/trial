@@ -1,0 +1,11 @@
+Practical 10: Interacting with Smart Contracts (Web3.js)
+
+Steps:
+1. Install Node.js and Truffle.
+2. Install and start Ganache.
+3. Initialize Truffle project and add Add.sol contract.
+4. Add migration script 1_deploy.js.
+5. Configure truffle-config.js for Ganache network.
+6. Compile and deploy contract using Truffle.
+7. Create index.html for Web3.js interaction.
+8. Start local server and connect MetaMask wallet.

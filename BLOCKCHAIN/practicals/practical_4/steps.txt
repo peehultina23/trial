@@ -1,0 +1,7 @@
+Practical 4: Setting up Ethereum Development Environment
+
+Steps:
+1. Download and install Ethereum (geth).
+2. Check installation: open CMD, run 'geth version'.
+3. Install Ganache and start Quick Start.
+4. Install MetaMask Chrome Extension and set up wallet.

@@ -1,0 +1,7 @@
+Practical 5: Ethereum Basics, Wallet, Ether Transactions
+
+Steps:
+1. Open Ganache and start workspace.
+2. Add custom network in MetaMask using Ganache RPC URL.
+3. Import wallet/account from Ganache to MetaMask using private key.
+4. Send Ethereum transaction using MetaMask.

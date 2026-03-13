@@ -1,0 +1,14 @@
+Practical 2: Cryptocurrency Price Change Calculation
+
+Steps:
+1. Take screenshots of cryptocurrency on CoinGecko.
+2. Note price on first and last day.
+3. Calculate percentage change and log return using formulas:
+   - Final change (%) = (Pn - P1) / P1 * 100
+   - Log return R = ln(Pn / P1) * 100
+
+Example:
+P1 = 87015
+Pn = 68502
+Final change (%) = -21.28
+Log return = -23.93

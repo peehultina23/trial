@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ethereum Web3 Interaction</title>
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+<body>
+<h2>Connect MetaMask Wallet</h2>
+<button onclick="connectWallet()">Connect Wallet</button>
+<p id="walletAddress"></p>
+<script>
+let web3;
+async function connectWallet() {
+  if (window.ethereum) {
+    web3 = new Web3(window.ethereum);
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const accounts = await web3.eth.getAccounts();
+    document.getElementById("walletAddress").innerHTML =
+      "Connected Account: " + accounts[0];
+  } else {
+    alert("MetaMask not installed");
+  }
+}
+</script>
+</body>
+</html>

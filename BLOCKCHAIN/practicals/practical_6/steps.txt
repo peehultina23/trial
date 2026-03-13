@@ -1,0 +1,6 @@
+Practical 6: Solidity Smart Contracts
+
+Steps:
+1. Open Remix IDE in browser.
+2. Create and compile tytoken1.sol and tytoken2.sol.
+3. Deploy contracts and test transfer function.

@@ -1,0 +1,6 @@
+Practical 8: Donation and Piggy Bank Contracts
+
+Steps:
+1. Write and deploy Donation contract.
+2. Write and deploy PiggyBank contract.
+3. Test deposit, getBalance, and withdraw functions.

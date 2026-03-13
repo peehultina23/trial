@@ -1,0 +1,11 @@
+Practical 7: Basic DeFi Application
+
+Part A: ERC20 Token
+1. Create MyToken.sol (ERC20) contract in Remix IDE.
+2. Compile and deploy contract.
+3. Check totalSupply and balanceOf.
+
+Part B: Staking Contract
+1. Create SimpleStaking.sol contract in Remix IDE.
+2. Compile and deploy contract with token address.
+3. Use stake and unstake functions.
