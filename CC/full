@@ -1,0 +1,834 @@
+Practical 1 : To create a Virtual Machine and set up a basic server on AWS using both Windows and Linux operating systems.
+Procedure:
+Open the AWS Management Console and search for EC2 in the search bar.
+
+Click on Instances from the EC2 dashboard.
+
+Select Launch Instance and provide the required details.
+
+Enter the instance name as ExamServer.
+
+Under Quick Start, select Windows as the operating system.
+
+Click on Create New Key Pair and provide the following details:
+
+Name: Exam123
+
+Key Pair Type: RSA
+
+Private Key File Format: .pem
+
+Click Create to generate the key pair.
+
+After creating the key pair, click on Launch Instance.
+
+Refresh the page or navigate back to the Instances section.
+
+Select the created instance and click on Connect.
+
+Under the RDP Client tab, click on Download Remote Desktop File.
+
+Next, click on Get Password.
+
+Upload the previously downloaded .pem private key file and click on Decrypt Password.
+
+Copy the generated password and save it for future reference.
+
+To access the remote server, open the downloaded Remote Desktop file from downloads.
+
+Click Connect.
+
+Enter the decrypted password obtained earlier.
+
+Click OK, then Yes, to establish the connection and access the remote desktop environment.
+
+Note:
+For creating a Red Hat instance, select the Red Hat application during instance creation. All other configuration options can remain the same as used for the Windows instance.
+__________________________________
+
+for Linux
+[9:17 am, 14/03/2026] Sakina: Practical 1 : To create a Virtual Machine and set up a basic server on AWS using Linux operating systems. 
+
+Procedure:
+Open the AWS Management Console and search for EC2 in the search bar. 
+
+Click on Instances from the EC2 dashboard. 
+
+Select Launch Instance and provide the required details. 
+
+Enter the instance name as ExamServer. 
+
+Under Quick Start, select AWS as the operating system. 
+
+Click on Create New Key Pair and provide the following details: 
+
+Name: Exam123 
+
+Key Pair Type: RSA 
+
+Private Key File Format: .pem 
+
+Click Create to generate the key pair. 
+
+After creating the key pair, click on Launch Instance. 
+
+Refresh the page or navigate back to the Instances section. 
+
+Select the created instance and click on Connect. 
+
+Again Click Connect.
+
+________________________________________________
+_
+2
+
+PRAC 2 - Demonstrate the use of Amplify and Lambda function
+Make a index.html file and write basic web page code in vs code:
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <h2>hello world!
+
+        </h2>
+    </head>
+    <body>Basic web page</body>
+</html>
+SAVE IT > then make a zip file of it then. 
+Go to AWS CONSOLE->SEARCH FOR aws AMPLIFY->Select AWS amplify Click on new app > Deploy without Git
+Add the index.html zip file
+After save and deploy will get a link then copy it and paste it in new tab
+
+LAMBDA:
+Search for lambda in AWS Console > select it
+Then click on create new function
+Select the 1 st option author from scratch and then give the function name: python
+Select your python version. Rest dont change anything > Create Function
+
+Then scroll down and write the code:
+import json
+import logging
+logger=logging.getLogger()
+logger.setLevel(logging.INFO)
+
+
+def lambda_handler(event, context):
+    # TODO implement
+    length=event['length']
+    width=event['width']
+    area=calculateArea(length,width)
+    print(f"Area: {area}")
+    logger.info(f"cloudwatch logs group: {context.log_group_name}")
+    data={
+        "area":area
+    }
+    return json.dumps(data)
+
+
+def calculateArea(length, width):
+    return length*width
+
+Deploy > Test 
+In Create New Test event -
+Event name: areaEvent
+Rest settings same
+
+Just write in Event JSON:
+{
+	“length”:23,
+	“width”:45
+}
+
+After writing the json code click on invoke > you get output.
+
+
+Calculator >
+
+
+Make a index.html file and write calculator web page code in vs code
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic Calculator</title>
+<style>
+body{
+  font-family: Arial;
+  text-align: center;
+  margin-top: 100px;
+}
+
+
+#display{
+  width: 160px;
+  height: 30px;
+  font-size: 18px;
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+
+button{
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+</style>
+</head>
+
+
+<body>
+
+
+<input type="text" id="display"><br>
+
+
+<button onclick="add('1')">1</button>
+<button onclick="add('2')">2</button>
+<button onclick="add('3')">3</button>
+<button onclick="add('+')">+</button><br>
+
+
+<button onclick="add('4')">4</button>
+<button onclick="add('5')">5</button>
+<button onclick="add('6')">6</button>
+<button onclick="add('-')">-</button><br>
+
+
+<button onclick="add('7')">7</button>
+<button onclick="add('8')">8</button>
+<button onclick="add('9')">9</button>
+<button onclick="add('*')">*</button><br>
+
+
+<button onclick="add('0')">0</button>
+<button onclick="calc()">=</button>
+<button onclick="clearDisplay()">C</button>
+<button onclick="add('/')">/</button>
+
+
+<script>
+function add(val){
+  document.getElementById("display").value += val;
+}
+
+
+function calc(){
+  document.getElementById("display").value = eval(document.getElementById("display").value);
+}
+
+
+function clearDisplay(){
+  document.getElementById("display").value = "";
+}
+</script>
+
+
+</body>
+</html>
+
+
+SAVE IT > then make a zip file of it then. 
+Go to AWS CONSOLE->SEARCH FOR aws AMPLIFY->Select AWS amplify Click on new app > Deploy without Git
+Add the index.html zip file
+After save and deploy will get a link then copy it and paste it in new tab
+
+__________________________________
+3
+
+//PRACTICAL 3 (PUSH REACT APP TO GITHUB WITH AWS AMPLIFY)
+
+create a folder in desktop open it in vscode
+then in terminal of vscode write the following commands
+npx create-react-app my-react-app or npx create-react-app@latest my-react-app
+cd my-react-app
+npm start
+
+then in app.js paste below code:
+//app.js
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (email && password) {
+      setUser(email);
+    }
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setEmail("");
+    setPassword("");
+  };
+
+  if (user) {
+    return (
+      <div className="home-container">
+        <h2>Welcome Home 🎉</h2>
+        <p>You are logged in as:</p>
+        <b>{user}</b>
+        <br />
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="login-container">
+      <form className="login-box" onSubmit={handleLogin}>
+        <h2>Login</h2>
+
+        <input
+          type="email"
+          placeholder="abc@gmail.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <input
+          type="password"
+          placeholder="****"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+}
+
+export default App;
+
+//then "npm start" check the output
+//then in GitHub account create new repository as reactapp see the commands in GitHub only
+//then in terminal write
+//git init
+//git add .
+//git commit -m "Initial commit"
+//git config --global user.email "you@example.com"
+//git config --global user.name "Your Name"
+//git branch -M main
+//git remote add origin https://github.com/user-name/reactapp.git
+//git push -u origin main
+
+//then open aws amplify create a new app
+//then click GitHub then next
+//choose the repository
+//save and deploy
+_______________________________
+4
+
+PART 1 — Create a VPC
+
+Search VPC in AWS search bar
+Click Create VPC
+Two approaches seen in the docs:
+
+Method A (VPC only — used cin Practical 4 TYBVOC version):
+
+Resources to create → VPC only
+Name tag → my-vpc-prac
+IPv4 CIDR → 10.0.0.0/16
+IPv6 → No IPv6
+Tenancy → Default
+Click Create VPC
+
+Method B (VPC and more — used in Practical 4 original version):
+
+Resources to create → VPC and more
+Name → prac4 (auto-generates everything)
+IPv4 CIDR → 10.0.0.0/16
+Number of AZs → 2
+Public subnets → 1, Private subnets → 1
+NAT Gateways → None (for now)
+Click Create VPC
+
+Exam tip: If asked just to "create a VPC," go with VPC only, set name and CIDR 10.0.0.0/16, click create.
+
+PART 2 — Create Public & Private Subnets
+(Only needed if you used VPC only method)
+Create Public Subnet:
+
+Go to VPC → Subnets → Create subnet
+VPC ID → select your VPC (my-vpc-prac)
+Subnet name → my-subnet-public-1
+Availability Zone → ap-south-1a
+IPv4 CIDR → 10.0.0.0/24
+Click Create subnet
+
+Create Private Subnet:
+
+Same steps, but:
+Subnet name → my-subnet-private-1
+IPv4 CIDR → 10.0.1.0/24
+Click Create subnet
+
+PART 3 — Create Public & Private Route Tables
+
+Go to VPC → Route tables → Create route table
+
+Public Route Table:
+
+Name → my-rt-public
+VPC → select your VPC
+Click Create route table
+
+Private Route Table:
+
+Name → my-rt-private
+VPC → select your VPC
+Click Create route table
+
+PART 4 — Route Table to Subnet Association
+Associate public subnet to public route table:
+
+In Route tables, right-click my-rt-public → Edit subnet associations
+Check my-subnet-public-1
+Click Save associations
+
+Associate private subnet to private route table:
+
+Right-click my-rt-private → Edit subnet associations
+Check my-subnet-private-1
+Click Save associations
+
+PART 5 — Create Internet Gateway & Attach to VPC
+
+Go to VPC → Internet gateways → Create internet gateway
+Name → my-internet-gtw
+Click Create internet gateway
+After creation, click Attach to a VPC (green banner at top)
+Select your VPC → Click Attach internet gateway
+
+PART 6 — Create NAT Gateway
+
+Go to VPC → NAT gateways → Create NAT gateway
+Name → my-nat-gateway
+Subnet → select your public subnet (NAT goes in public!)
+Connectivity type → Public
+Elastic IP → Click Allocate Elastic IP
+Click Create NAT gateway
+
+Important: NAT Gateway is placed in the Public Subnet, not private.
+
+PART 7 — Update Route Tables
+Public Route Table → Add Internet Gateway route:
+
+Select my-rt-public → Routes tab → Edit routes
+Click Add route
+Destination → 0.0.0.0/0
+Target → Internet Gateway → select your IGW
+Click Save changes
+
+Private Route Table → Add NAT Gateway route:
+
+Select my-rt-private → Routes tab → Edit routes
+Click Add route
+Destination → 0.0.0.0/0
+Target → NAT Gateway → select your NAT GW
+Click Save changes
+
+PART 8 — Create Security Groups
+Public Security Group:
+
+Go to VPC → Security groups → Create security group
+Name → public-sg
+Description → Allow SSH access to developer
+VPC → your VPC
+Inbound rules → Add rule: Type SSH, Port 22, Source Anywhere (or your local IP /32)
+Click Create security group
+
+Private Security Group:
+
+Same steps, Name → private-sg
+Inbound rules → Type SSH, Port 22, Source → public subnet CIDR 10.0.0.0/24
+Click Create security group
+
+PART 9 — Create Key Pair
+
+Go to EC2 → Key Pairs → Create key pair
+Name → vpc-kp
+Key pair type → RSA
+Private key format → .pem (for OpenSSH/Mac/Linux) or .ppk (for PuTTY/Windows)
+Click Create key pair — file downloads automatically
+
+PART 10 — Create IAM Role
+
+Search IAM → Roles → Create role
+Trusted entity type → AWS service
+Use case → S3
+Next → Add permissions → search AmazonS3FullAccess → check it
+Role name → S3_full_access
+Click Create role
+
+PART 11 — Launch EC2 Instances
+Public EC2:
+
+Go to EC2 → Instances → Launch instances
+Name → ubuntu-public
+AMI → Ubuntu Server 22.04 LTS
+Instance type → t2.micro (free tier)
+Key pair → select vpc-kp
+Network settings → Edit:
+
+VPC → your VPC
+Subnet → my-subnet-public-1
+Auto-assign public IP → Enable
+Security group → select public-sg
+
+Click Launch instance
+
+Private EC2:
+
+Same steps, Name → ubuntu-private
+Network settings:
+
+Subnet → my-subnet-private-1
+Auto-assign public IP → Disable
+Security group → select private-sg
+
+Click Launch instance
+
+PART 12 — Add Inbound Rules to Security Groups
+(If not done during creation)
+Public SG — Allow SSH from your local IP:
+
+EC2 → Security Groups → select public-sg
+Inbound rules → Edit inbound rules
+Add rule: SSH, TCP, port 22, Source → My IP (auto-fills your IP)
+Save rules
+
+Private SG — Allow SSH from public subnet:
+
+Select private-sg → Edit inbound rules
+Add rule: SSH, TCP, port 22, Source → 10.0.0.0/24 (public subnet CIDR)
+Save rules
+
+---
+
+next part
+Go to ec2> instances >Ubuntu public > connect
+
+Go to command prompt type
+ssh
+ssh -v
+
+# 1. Reset permissions (Crucial: AWS rejects keys that are 'too open')
+
+icacls "vcp-kp-mehak.pem" /inheritance:r
+icacls "vcp-kp-mehak.pem" /grant:r %username%:R
+
+# 2. Upload the key to the Public Instance (so you can jump to Private later)
+
+# Syntax: scp -i [identity] [file_to_copy] [user]@[IP]:[destination]
+
+scp -i "vcp-kp-mehak.pem" "vcp-kp-mehak.pem" ubuntu@13.60.53.136:/home/ubuntu/
+
+# 3. SSH into the Public Instance
+
+ssh -i "vcp-kp-mehak.pem" ubuntu@13.60.53.136
+
+# 1. Update the system
+
+sudo apt-get update -y
+
+# 2. Install AWS CLI (to test your IAM Role later)
+
+sudo snap install aws-cli --classic
+
+# 3. Fix permissions for the key you just uploaded via SCP
+
+chmod 400 vcp-kp-mehak.pem
+
+# 4. SSH into the Private Instance using its Private IP
+
+ssh -i "vcp-kp-mehak.pem" ubuntu@10.0.1.179
+
+> To connect to private machine
+> Open new powershell type
+
+# 1. Test Internet Connectivity (This verifies your NAT Gateway is working)
+
+ping -c 4 google.com
+
+# 2. Test S3 Access (This verifies your IAM Role is working)
+
+# Note: Ensure you attached the 'S3_full_access' role to this instance in AWS Console
+
+aws s3 ls
+
+# 3. Exit back to Public Instance
+
+exit
+erify S3 Access (Testing the IAM Role)
+Even if you created the role in Part 10, it isn't "active" until you attach it to the instance in the console.
+
+In AWS Console: Go to EC2 > Instances.
+
+Select ubuntu-public.
+
+Click Actions > Security > Modify IAM Role.
+
+Select your S3_full_access role and click Update IAM role.
+
+In your Terminal (Public Instance):
+
+Bash
+
+# This should now list your S3 buckets without needing a password
+
+aws s3 ls
+
+******\_\_\_\_******end**********\_**********
+
+###extra
+PART 13 — The "Bastion" Connection (SSH Agent Forwarding)
+On your local machine (Mac/Linux):
+
+ssh-add vpc-kp.pem
+ssh -A ubuntu@<Public-IP-of-Public-EC2>
+
+On your local machine (Windows/PuTTY):
+Enable "Allow agent forwarding" in the Connection -> SSH -> Auth settings.
+
+Once inside the Public EC2:
+Simply run: ssh ubuntu@10.0.1.x (the private IP of your Private EC2).
+
+PART 14 — Attach the IAM Role to the Instance
+In Part 10, you created an IAM Role, but you didn't attach it to the EC2 instance yet.
+
+Go to EC2 Instances.
+Select your Private EC2 instance.
+Click Actions → Security → Modify IAM role.
+Select S3_full_access and click Update IAM role.
+
+Why? This allows your private instance to talk to S3 without needing to store secret access keys on the server.
+
+#extra run ------
+Step 1: On your Local Computer (Terminal/PowerShell)
+Connect to your Public EC2 (The Bastion Host).
+
+Bash
+ssh -i "vpc-kp.pem" ubuntu@<PUBLIC_IP_OF_PUBLIC_EC2>
+Once this succeeds, your terminal prompt will change to something like ubuntu@ip-10-0-0-x:~$.
+
+Step 2: From the Public EC2 (The "Bridge")
+Now, inside that terminal, connect to your Private EC2 using its Private IP.
+
+Bash
+ssh ubuntu@10.0.1.x
+(Note: For this to work without copying keys, refer to the "SSH Agent Forwarding" tip in the previous step, or temporarily paste your private key content into a file on the Public EC2).
+
+Step 3: Inside the Private EC2 (The "Destination")
+This is where you run your verification commands. Once your prompt shows the private IP (e.g., ubuntu@ip-10-0-1-x:~$), run these:
+
+1. Test the NAT Gateway (Internet Access)
+   Bash
+   ping -c 4 google.com
+   What to look for: If you see "64 bytes from...", the NAT Gateway and Route Tables are perfectly configured.
+
+If it fails: Check if your Private Route Table has a route to 0.0.0.0/0 pointing to the NAT Gateway.
+
+2. Test the IAM Role (S3 Access)
+   First, update your package list and install the AWS tool:
+
+Bash
+sudo apt update && sudo apt install awscli -y
+aws s3 ls
+What to look for: A list of your S3 buckets (or a blank line if you have no buckets).
+
+If it fails: Ensure the IAM Role was attached to the Private EC2 instance in the Console.
+
+3. Test Internal Connectivity
+   Bash
+   ping -c 4 <PRIVATE_IP_OF_PUBLIC_EC2>
+   What to look for: Success proves the instances can talk to each other over the local 10.0.0.0/16 network.
+
+_____________________________________________________
+
+6
+
+Practical 6 : Create and manage users in Jenkins
+Procedure:
+Open Google and search for Java Corretto 21 download.
+
+Download the Windows (MSI) installer file.
+
+Open the downloaded file and proceed with the installation by clicking Next → Next → Finish.
+
+After installation, navigate to Environment Variables and verify whether the JAVA_HOME path has been created under System Variables.
+
+If the path exists, it confirms that Java Corretto has been installed successfully, and you can proceed with the practical.
+
+Next, return to Google and search for Jenkins download.
+
+Scroll down and download Jenkins 2.541.1 LTS.
+
+After downloading, open Command Prompt (CMD) and verify the Java installation by executing the following commands:
+
+java -version
+
+javac
+
+Move the downloaded Jenkins WAR file to the D drive and open Command Prompt in that location.
+
+In the Command Prompt on the D drive, run the following command:
+
+java -jar jenkins.war
+
+Do not close this Command Prompt window until the practical session is completed.
+
+Copy the highlighted file path displayed in the Command Prompt.
+
+Open that file using Notepad and copy the one-time administrator password provided inside it.
+
+Open Google Chrome and enter the following URL in the address bar:
+
+http://localhost:8080
+
+Paste the copied administrator password and click Continue.
+
+Select Install Suggested Plugins.
+
+Create a user account using your name and click Save and Continue.
+
+Click Save and Finish, then select Start using Jenkins.
+
+On the Jenkins dashboard, click New Item → select Freestyle Project → enter the project name as DemoProject.
+
+Click on the Settings icon, then navigate to Users.
+
+Select Create Users and create two user accounts.
+
+Ensure that you remember the passwords for both users.
+
+After creating the users, return to the Settings dashboard.
+
+Go to Security → Authorization and select Matrix-based Security.
+
+Click Add and include the two users that were created earlier.
+
+Assign multiple permissions to User 1, while granting only Read/View permissions to User 2.
+
+Sign out from the current account and log in using the two newly created user accounts to verify the permissions.
+
+Output:
+
+User 1 will be able to view the DemoProject and perform CRUD operations on it.
+User 2 will only have permission to view the project without making any modifications.
+_____________________________________________________
+
+7
+
+Prac 7 -
+creating , scheduling and building jobs in Jenkins
+
+Sign-in with your credentials or create first admin user
+Inside Jenkins > New item > Name-website > Freestyle project > OK
+General > description : test reachability of website
+Build steps > Add > Execute Windows batch command > paste the following:
+
+@echo off
+echo Checking Website health...
+
+curl -ls --connect-timeout 5 --max-time 10 https://google.com >NUL || exit /b 1
+curl -ls --connect-timeout 5 --max-time 10 https://github.com >NUL || exit /b 1
+curl -ls --connect-timeout 5 --max-time 10 https://jaihindcollege.com >NUL || exit /b 1
+
+echo All sites are up
+
+Next SAVE.
+Click on BUILD NOW. (should build successfully.)
+Check status
+
+Click on configure and change the college name to misspelling.
+curl -ls --connect-timeout 5 --max-time 10 https://jaihindcolleges.com >NUL || exit /b 1
+
+Next SAVE > BUILD NOW > Job should fail.
+
+SCHEDULING JOB:
+Configure > Triggers > Build periodically > Schedule > 
+25 01 * * 0-7 (FORMAT (M H * * 0-7) 
+
+eg.Run at 2:30 PM every day
+30 14 * * *
+
+
+WITH PYTHON CODE -
+New item > python_project (Freestyle project) > OK
+Configure > general > Description: to execute python code
+
+Environment > Build steps > Add > Execute Windows batch command > paste the following:
+
+python –version(two hyphen)
+
+SAVE > Next >  build now.
+
+Configure > Build steps > Add > Execute Windows batch command > paste the following:
+
+echo print("Hello Jenkins") > pythontest.py
+
+SAVE. > BUILD NOW > should run successfully > 
+Go to workspace > pythontest.py file should appear.
+_________________________________________________
+
+8 
+
+Make a folder on Desktop > my_python_app
+
+Make a file in that folder > app.py
+#app.py
+print("Hello World!")
+
+Make another file in that folder > requirements.txt
+#requirements.txt
+flask
+
+Make another docker file > Dockerfile
+folder location cmd type = type nul > Dockerfile
+#Dockerfile
+FROM python:3.9 #change version acc to your python
+WORKDIR /app
+COPY . /app
+RUN pip install --no-cache-dir -r requirements.txt
+CMD ["python", "app.py"]
+
+In the same cmd type = docker buildx build -t my_python_app .
+In the same cmd type = docker run my_python_app
+
+(Local Machine Successfully Run)
+
+*For Docker Machine*
+Login to docker
+Open terminal > enable
+Type = docker tag my_python_app your_dockerhub_username/my_python_app:latest
+eg. docker tag my_python_app peehul23/my_python_app:latest
+
+Push Image
+type = docker push your_dockerhub_username/my_python_app:latest
+eg. docker push peehul23/my_python_app:latest
+
+Pull Image
+type = docker pull your_dockerhub_username/my_python_app:latest
+eg. docker pull peehul23/my_python_app:latest
+
+Run Image once pulled
+type = docker run your_dockerhub_username/my_python_app
+eg. docker run peehul23/my_python_app
+________________________
+___________________
+
+
+
+
