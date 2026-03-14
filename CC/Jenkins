@@ -1,0 +1,69 @@
+Practical 6 : Create and manage users in Jenkins
+Procedure:
+Open Google and search for Java Corretto 21 download.
+
+Download the Windows (MSI) installer file.
+
+Open the downloaded file and proceed with the installation by clicking Next → Next → Finish.
+
+After installation, navigate to Environment Variables and verify whether the JAVA_HOME path has been created under System Variables.
+
+If the path exists, it confirms that Java Corretto has been installed successfully, and you can proceed with the practical.
+
+Next, return to Google and search for Jenkins download.
+
+Scroll down and download Jenkins 2.541.1 LTS.
+
+After downloading, open Command Prompt (CMD) and verify the Java installation by executing the following commands:
+
+java -version
+
+javac
+
+Move the downloaded Jenkins WAR file to the D drive and open Command Prompt in that location.
+
+In the Command Prompt on the D drive, run the following command:
+
+java -jar jenkins.war
+
+Do not close this Command Prompt window until the practical session is completed.
+
+Copy the highlighted file path displayed in the Command Prompt.
+
+Open that file using Notepad and copy the one-time administrator password provided inside it.
+
+Open Google Chrome and enter the following URL in the address bar:
+
+http://localhost:8080
+
+Paste the copied administrator password and click Continue.
+
+Select Install Suggested Plugins.
+
+Create a user account using your name and click Save and Continue.
+
+Click Save and Finish, then select Start using Jenkins.
+
+On the Jenkins dashboard, click New Item → select Freestyle Project → enter the project name as DemoProject.
+
+Click on the Settings icon, then navigate to Users.
+
+Select Create Users and create two user accounts.
+
+Ensure that you remember the passwords for both users.
+
+After creating the users, return to the Settings dashboard.
+
+Go to Security → Authorization and select Matrix-based Security.
+
+Click Add and include the two users that were created earlier.
+
+Assign multiple permissions to User 1, while granting only Read/View permissions to User 2.
+
+Sign out from the current account and log in using the two newly created user accounts to verify the permissions.
+
+Output:
+
+User 1 will be able to view the DemoProject and perform CRUD operations on it.
+
+User 2 will only have permission to view the project without making any modifications.
