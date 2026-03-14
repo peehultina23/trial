@@ -1,0 +1,248 @@
+PART 1 — Create a VPC
+
+Search VPC in AWS search bar
+Click Create VPC
+Two approaches seen in the docs:
+
+Method A (VPC only — used in Practical 4 TYBVOC version):
+
+Resources to create → VPC only
+Name tag → my-vpc-prac
+IPv4 CIDR → 10.0.0.0/16
+IPv6 → No IPv6
+Tenancy → Default
+Click Create VPC
+
+Method B (VPC and more — used in Practical 4 original version):
+
+Resources to create → VPC and more
+Name → prac4 (auto-generates everything)
+IPv4 CIDR → 10.0.0.0/16
+Number of AZs → 2
+Public subnets → 1, Private subnets → 1
+NAT Gateways → None (for now)
+Click Create VPC
+
+Exam tip: If asked just to "create a VPC," go with VPC only, set name and CIDR 10.0.0.0/16, click create.
+
+PART 2 — Create Public & Private Subnets
+(Only needed if you used VPC only method)
+Create Public Subnet:
+
+Go to VPC → Subnets → Create subnet
+VPC ID → select your VPC (my-vpc-prac)
+Subnet name → my-subnet-public-1
+Availability Zone → ap-south-1a
+IPv4 CIDR → 10.0.0.0/24
+Click Create subnet
+
+Create Private Subnet:
+
+Same steps, but:
+Subnet name → my-subnet-private-1
+IPv4 CIDR → 10.0.1.0/24
+Click Create subnet
+
+PART 3 — Create Public & Private Route Tables
+
+Go to VPC → Route tables → Create route table
+
+Public Route Table:
+
+Name → my-rt-public
+VPC → select your VPC
+Click Create route table
+
+Private Route Table:
+
+Name → my-rt-private
+VPC → select your VPC
+Click Create route table
+
+PART 4 — Route Table to Subnet Association
+Associate public subnet to public route table:
+
+In Route tables, right-click my-rt-public → Edit subnet associations
+Check my-subnet-public-1
+Click Save associations
+
+Associate private subnet to private route table:
+
+Right-click my-rt-private → Edit subnet associations
+Check my-subnet-private-1
+Click Save associations
+
+PART 5 — Create Internet Gateway & Attach to VPC
+
+Go to VPC → Internet gateways → Create internet gateway
+Name → my-internet-gtw
+Click Create internet gateway
+After creation, click Attach to a VPC (green banner at top)
+Select your VPC → Click Attach internet gateway
+
+PART 6 — Create NAT Gateway
+
+Go to VPC → NAT gateways → Create NAT gateway
+Name → my-nat-gateway
+Subnet → select your public subnet (NAT goes in public!)
+Connectivity type → Public
+Elastic IP → Click Allocate Elastic IP
+Click Create NAT gateway
+
+Important: NAT Gateway is placed in the Public Subnet, not private.
+
+PART 7 — Update Route Tables
+Public Route Table → Add Internet Gateway route:
+
+Select my-rt-public → Routes tab → Edit routes
+Click Add route
+Destination → 0.0.0.0/0
+Target → Internet Gateway → select your IGW
+Click Save changes
+
+Private Route Table → Add NAT Gateway route:
+
+Select my-rt-private → Routes tab → Edit routes
+Click Add route
+Destination → 0.0.0.0/0
+Target → NAT Gateway → select your NAT GW
+Click Save changes
+
+PART 8 — Create Security Groups
+Public Security Group:
+
+Go to VPC → Security groups → Create security group
+Name → public-sg
+Description → Allow SSH access to developer
+VPC → your VPC
+Inbound rules → Add rule: Type SSH, Port 22, Source Anywhere (or your local IP /32)
+Click Create security group
+
+Private Security Group:
+
+Same steps, Name → private-sg
+Inbound rules → Type SSH, Port 22, Source → public subnet CIDR 10.0.0.0/24
+Click Create security group
+
+PART 9 — Create Key Pair
+
+Go to EC2 → Key Pairs → Create key pair
+Name → vpc-kp
+Key pair type → RSA
+Private key format → .pem (for OpenSSH/Mac/Linux) or .ppk (for PuTTY/Windows)
+Click Create key pair — file downloads automatically
+
+PART 10 — Create IAM Role
+
+Search IAM → Roles → Create role
+Trusted entity type → AWS service
+Use case → S3
+Next → Add permissions → search AmazonS3FullAccess → check it
+Role name → S3_full_access
+Click Create role
+
+PART 11 — Launch EC2 Instances
+Public EC2:
+
+Go to EC2 → Instances → Launch instances
+Name → ubuntu-public
+AMI → Ubuntu Server 22.04 LTS
+Instance type → t2.micro (free tier)
+Key pair → select vpc-kp
+Network settings → Edit:
+
+VPC → your VPC
+Subnet → my-subnet-public-1
+Auto-assign public IP → Enable
+Security group → select public-sg
+
+Click Launch instance
+
+Private EC2:
+
+Same steps, Name → ubuntu-private
+Network settings:
+
+Subnet → my-subnet-private-1
+Auto-assign public IP → Disable
+Security group → select private-sg
+
+Click Launch instance
+
+PART 12 — Add Inbound Rules to Security Groups
+(If not done during creation)
+Public SG — Allow SSH from your local IP:
+
+EC2 → Security Groups → select public-sg
+Inbound rules → Edit inbound rules
+Add rule: SSH, TCP, port 22, Source → My IP (auto-fills your IP)
+Save rules
+
+Private SG — Allow SSH from public subnet:
+
+Select private-sg → Edit inbound rules
+Add rule: SSH, TCP, port 22, Source → 10.0.0.0/24 (public subnet CIDR)
+Save rules
+
+###extra
+PART 13 — The "Bastion" Connection (SSH Agent Forwarding)
+On your local machine (Mac/Linux):
+
+ssh-add vpc-kp.pem
+ssh -A ubuntu@<Public-IP-of-Public-EC2>
+
+On your local machine (Windows/PuTTY):
+Enable "Allow agent forwarding" in the Connection -> SSH -> Auth settings.
+
+Once inside the Public EC2:
+Simply run: ssh ubuntu@10.0.1.x (the private IP of your Private EC2).
+
+PART 14 — Attach the IAM Role to the Instance
+In Part 10, you created an IAM Role, but you didn't attach it to the EC2 instance yet.
+
+Go to EC2 Instances.
+Select your Private EC2 instance.
+Click Actions → Security → Modify IAM role.
+Select S3_full_access and click Update IAM role.
+
+Why? This allows your private instance to talk to S3 without needing to store secret access keys on the server.
+
+#extra run ------
+Step 1: On your Local Computer (Terminal/PowerShell)
+Connect to your Public EC2 (The Bastion Host).
+
+Bash
+ssh -i "vpc-kp.pem" ubuntu@<PUBLIC_IP_OF_PUBLIC_EC2>
+Once this succeeds, your terminal prompt will change to something like ubuntu@ip-10-0-0-x:~$.
+
+Step 2: From the Public EC2 (The "Bridge")
+Now, inside that terminal, connect to your Private EC2 using its Private IP.
+
+Bash
+ssh ubuntu@10.0.1.x
+(Note: For this to work without copying keys, refer to the "SSH Agent Forwarding" tip in the previous step, or temporarily paste your private key content into a file on the Public EC2).
+
+Step 3: Inside the Private EC2 (The "Destination")
+This is where you run your verification commands. Once your prompt shows the private IP (e.g., ubuntu@ip-10-0-1-x:~$), run these:
+
+1. Test the NAT Gateway (Internet Access)
+   Bash
+   ping -c 4 google.com
+   What to look for: If you see "64 bytes from...", the NAT Gateway and Route Tables are perfectly configured.
+
+If it fails: Check if your Private Route Table has a route to 0.0.0.0/0 pointing to the NAT Gateway.
+
+2. Test the IAM Role (S3 Access)
+   First, update your package list and install the AWS tool:
+
+Bash
+sudo apt update && sudo apt install awscli -y
+aws s3 ls
+What to look for: A list of your S3 buckets (or a blank line if you have no buckets).
+
+If it fails: Ensure the IAM Role was attached to the Private EC2 instance in the Console.
+
+3. Test Internal Connectivity
+   Bash
+   ping -c 4 <PRIVATE_IP_OF_PUBLIC_EC2>
+   What to look for: Success proves the instances can talk to each other over the local 10.0.0.0/16 network.

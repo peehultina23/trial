@@ -1,0 +1,41 @@
+Make a folder on Desktop > my_python_app
+
+Make a file in that folder > app.py
+#app.py
+print("Hello World!")
+
+Make another file in that folder > requirements.txt
+#requirements.txt
+flask
+
+Make another docker file > Dockerfile
+folder location cmd type = type nul > Dockerfile
+#Dockerfile
+FROM python:3.9 #change version acc to your python
+WORKDIR /app
+COPY . /app
+RUN pip install --no-cache-dir -r requirements.txt
+CMD ["python", "app.py"]
+
+In the same cmd type = docker buildx build -t my_python_app .
+In the same cmd type = docker run my_python_app
+
+(Local Machine Successfully Run)
+
+*For Docker Machine*
+Login to docker
+Open terminal > enable
+Type = docker tag my_python_app your_dockerhub_username/my_python_app:latest
+eg. docker tag my_python_app peehul23/my_python_app:latest
+
+Push Image
+type = docker push your_dockerhub_username/my_python_app:latest
+eg. docker push peehul23/my_python_app:latest
+
+Pull Image
+type = docker pull your_dockerhub_username/my_python_app:latest
+eg. docker pull peehul23/my_python_app:latest
+
+Run Image once pulled
+type = docker run your_dockerhub_username/my_python_app
+eg. docker run peehul23/my_python_app

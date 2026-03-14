@@ -65,5 +65,4 @@ Sign out from the current account and log in using the two newly created user ac
 Output:
 
 User 1 will be able to view the DemoProject and perform CRUD operations on it.
-
 User 2 will only have permission to view the project without making any modifications.
