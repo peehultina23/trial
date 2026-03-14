@@ -4,7 +4,7 @@ Search VPC in AWS search bar
 Click Create VPC
 Two approaches seen in the docs:
 
-Method A (VPC only — used in Practical 4 TYBVOC version):
+Method A (VPC only — used cin Practical 4 TYBVOC version):
 
 Resources to create → VPC only
 Name tag → my-vpc-prac
@@ -183,6 +183,83 @@ Private SG — Allow SSH from public subnet:
 Select private-sg → Edit inbound rules
 Add rule: SSH, TCP, port 22, Source → 10.0.0.0/24 (public subnet CIDR)
 Save rules
+
+---
+
+next part
+Go to ec2> instances >Ubuntu public > connect
+
+Go to command prompt type
+ssh
+ssh -v
+
+# 1. Reset permissions (Crucial: AWS rejects keys that are 'too open')
+
+icacls "vcp-kp-mehak.pem" /inheritance:r
+icacls "vcp-kp-mehak.pem" /grant:r %username%:R
+
+# 2. Upload the key to the Public Instance (so you can jump to Private later)
+
+# Syntax: scp -i [identity] [file_to_copy] [user]@[IP]:[destination]
+
+scp -i "vcp-kp-mehak.pem" "vcp-kp-mehak.pem" ubuntu@13.60.53.136:/home/ubuntu/
+
+# 3. SSH into the Public Instance
+
+ssh -i "vcp-kp-mehak.pem" ubuntu@13.60.53.136
+
+# 1. Update the system
+
+sudo apt-get update -y
+
+# 2. Install AWS CLI (to test your IAM Role later)
+
+sudo snap install aws-cli --classic
+
+# 3. Fix permissions for the key you just uploaded via SCP
+
+chmod 400 vcp-kp-mehak.pem
+
+# 4. SSH into the Private Instance using its Private IP
+
+ssh -i "vcp-kp-mehak.pem" ubuntu@10.0.1.179
+
+> To connect to private machine
+> Open new powershell type
+
+# 1. Test Internet Connectivity (This verifies your NAT Gateway is working)
+
+ping -c 4 google.com
+
+# 2. Test S3 Access (This verifies your IAM Role is working)
+
+# Note: Ensure you attached the 'S3_full_access' role to this instance in AWS Console
+
+aws s3 ls
+
+# 3. Exit back to Public Instance
+
+exit
+erify S3 Access (Testing the IAM Role)
+Even if you created the role in Part 10, it isn't "active" until you attach it to the instance in the console.
+
+In AWS Console: Go to EC2 > Instances.
+
+Select ubuntu-public.
+
+Click Actions > Security > Modify IAM Role.
+
+Select your S3_full_access role and click Update IAM role.
+
+In your Terminal (Public Instance):
+
+Bash
+
+# This should now list your S3 buckets without needing a password
+
+aws s3 ls
+
+******\_\_\_\_******end**********\_**********
 
 ###extra
 PART 13 — The "Bastion" Connection (SSH Agent Forwarding)
