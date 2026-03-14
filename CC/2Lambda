@@ -1,0 +1,150 @@
+PRAC 2 - Demonstrate the use of Amplify and Lambda function
+Make a index.html file and write basic web page code in vs code:
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <h2>hello world!
+
+        </h2>
+    </head>
+    <body>Basic web page</body>
+</html>
+SAVE IT > then make a zip file of it then. 
+Go to AWS CONSOLE->SEARCH FOR aws AMPLIFY->Select AWS amplify Click on new app > Deploy without Git
+Add the index.html zip file
+After save and deploy will get a link then copy it and paste it in new tab
+
+LAMBDA:
+Search for lambda in AWS Console > select it
+Then click on create new function
+Select the 1 st option author from scratch and then give the function name: python
+Select your python version. Rest dont change anything > Create Function
+
+Then scroll down and write the code:
+import json
+import logging
+logger=logging.getLogger()
+logger.setLevel(logging.INFO)
+
+
+def lambda_handler(event, context):
+    # TODO implement
+    length=event['length']
+    width=event['width']
+    area=calculateArea(length,width)
+    print(f"Area: {area}")
+    logger.info(f"cloudwatch logs group: {context.log_group_name}")
+    data={
+        "area":area
+    }
+    return json.dumps(data)
+
+
+def calculateArea(length, width):
+    return length*width
+
+Deploy > Test 
+In Create New Test event -
+Event name: areaEvent
+Rest settings same
+
+Just write in Event JSON:
+{
+	“length”:23,
+	“width”:45
+}
+
+After writing the json code click on invoke > you get output.
+
+
+Calculator >
+
+
+Make a index.html file and write calculator web page code in vs code
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic Calculator</title>
+<style>
+body{
+  font-family: Arial;
+  text-align: center;
+  margin-top: 100px;
+}
+
+
+#display{
+  width: 160px;
+  height: 30px;
+  font-size: 18px;
+  text-align: right;
+  margin-bottom: 5px;
+}
+
+
+button{
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+</style>
+</head>
+
+
+<body>
+
+
+<input type="text" id="display"><br>
+
+
+<button onclick="add('1')">1</button>
+<button onclick="add('2')">2</button>
+<button onclick="add('3')">3</button>
+<button onclick="add('+')">+</button><br>
+
+
+<button onclick="add('4')">4</button>
+<button onclick="add('5')">5</button>
+<button onclick="add('6')">6</button>
+<button onclick="add('-')">-</button><br>
+
+
+<button onclick="add('7')">7</button>
+<button onclick="add('8')">8</button>
+<button onclick="add('9')">9</button>
+<button onclick="add('*')">*</button><br>
+
+
+<button onclick="add('0')">0</button>
+<button onclick="calc()">=</button>
+<button onclick="clearDisplay()">C</button>
+<button onclick="add('/')">/</button>
+
+
+<script>
+function add(val){
+  document.getElementById("display").value += val;
+}
+
+
+function calc(){
+  document.getElementById("display").value = eval(document.getElementById("display").value);
+}
+
+
+function clearDisplay(){
+  document.getElementById("display").value = "";
+}
+</script>
+
+
+</body>
+</html>
+
+
+SAVE IT > then make a zip file of it then. 
+Go to AWS CONSOLE->SEARCH FOR aws AMPLIFY->Select AWS amplify Click on new app > Deploy without Git
+Add the index.html zip file
+After save and deploy will get a link then copy it and paste it in new tab
+
