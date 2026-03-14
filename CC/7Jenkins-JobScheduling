@@ -1,0 +1,50 @@
+Prac 7 -
+creating , scheduling and building jobs in Jenkins
+
+Sign-in with your credentials or create first admin user
+Inside Jenkins > New item > Name-website > Freestyle project > OK
+General > description : test reachability of website
+Build steps > Add > Execute Windows batch command > paste the following:
+
+@echo off
+echo Checking Website health...
+
+curl -ls --connect-timeout 5 --max-time 10 https://google.com >NUL || exit /b 1
+curl -ls --connect-timeout 5 --max-time 10 https://github.com >NUL || exit /b 1
+curl -ls --connect-timeout 5 --max-time 10 https://jaihindcollege.com >NUL || exit /b 1
+
+echo All sites are up
+
+Next SAVE.
+Click on BUILD NOW. (should build successfully.)
+Check status
+
+Click on configure and change the college name to misspelling.
+curl -ls --connect-timeout 5 --max-time 10 https://jaihindcolleges.com >NUL || exit /b 1
+
+Next SAVE > BUILD NOW > Job should fail.
+
+SCHEDULING JOB:
+Configure > Triggers > Build periodically > Schedule > 
+25 01 * * 0-7 (FORMAT (M H * * 0-7) 
+
+eg.Run at 2:30 PM every day
+30 14 * * *
+
+
+WITH PYTHON CODE -
+New item > python_project (Freestyle project) > OK
+Configure > general > Description: to execute python code
+
+Environment > Build steps > Add > Execute Windows batch command > paste the following:
+
+python –version(two hyphen)
+
+SAVE > Next >  build now.
+
+Configure > Build steps > Add > Execute Windows batch command > paste the following:
+
+echo print("Hello Jenkins") > pythontest.py
+
+SAVE. > BUILD NOW > should run successfully > 
+Go to workspace > pythontest.py file should appear.
